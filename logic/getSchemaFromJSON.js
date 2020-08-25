@@ -17,7 +17,7 @@ async function getSchemaFromJSON(client, table, keyspace) {
         tableSchema.title = table;
 
         for (let [key, val] of Object.entries(JSON.parse(JSONValue))) {
-            tableSchema.properties[key] = { type: defineType(val) };
+            tableSchema.properties[key] = defineType(val);
         }
 
         return tableSchema;

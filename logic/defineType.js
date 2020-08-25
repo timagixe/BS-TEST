@@ -2,14 +2,12 @@ const _ = require('lodash');
 
 function generatePropsForObject(obj) {
     if (_.isEmpty(obj)) {
-        return 'object';
+        return { type: 'object' };
     }
 
-    const schema = {};
+    const schema = { type: 'object', properties: {} };
     for (let [key, val] of Object.entries(obj)) {
-        schema[key] = {
-            type: defineType(val),
-        };
+        schema.properties[key] = defineType(val);
     }
     return schema;
 }
@@ -20,23 +18,23 @@ function defineType(value) {
     }
 
     if (_.isArray(value)) {
-        return 'array';
+        return { type: 'array' };
     }
 
     if (_.isNull(value)) {
-        return ['string', 'null'];
+        return { type: 'null' };
     }
 
     if (_.isNumber(value)) {
-        return 'number';
+        return { type: 'number' };
     }
 
     if (_.isBoolean(value)) {
-        return 'boolean';
+        return { type: 'boolean' };
     }
 
     if (_.isString(value)) {
-        return 'string';
+        return { type: 'string' };
     }
 }
 
